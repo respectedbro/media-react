@@ -1,0 +1,196 @@
+@import "@/styles/variables";
+
+.container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+}
+
+.signup {
+  width: 100%;
+  height: 100%;
+  background-color: $darker-bg;
+  display: flex;
+  flex-direction: column;
+  padding: 80px;
+  justify-content: center;
+
+  .formWrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    max-width: 450px;
+    margin: 0 auto;
+  }
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 40px;
+  color: $white;
+
+  .title {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+}
+
+.inputGroup {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+}
+
+.input {
+  width: 100%;
+  color: $white;
+  padding: 8px 0;
+  margin-bottom: 16px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid $gray-500;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+
+  &::placeholder {
+    color: $gray-400;
+  }
+
+  &:focus {
+    outline: none;
+    border-bottom-color: $white;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.error {
+  color: $red-500;
+  margin-bottom: 16px;
+  font-size: 14px;
+  min-height: 20px;
+}
+
+.buttonGroup {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.button {
+  width: 100%;
+  background-color: transparent;
+  border: 1px solid $white;
+  color: $white;
+  margin: 8px 0;
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 16px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 16px;
+
+  &:hover:not(:disabled) {
+    background-color: rgba($white, 0.1);
+    transform: translateY(-1px);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.buttonDisabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.divider {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 16px 0;
+}
+
+.dividerLine {
+  width: 100%;
+  height: 1px;
+  background-color: $gray-500;
+}
+
+.footer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footerText {
+  font-size: 14px;
+  font-weight: 400;
+  color: $gray-400;
+}
+
+.footerLink {
+  font-weight: 600;
+  color: $white;
+  cursor: pointer;
+  text-decoration: underline;
+  margin-left: 4px;
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: $gray-400;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.formWrapper {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.input {
+  animation: fadeIn 0.5s ease-out;
+
+  &:nth-child(1) { animation-delay: 0.1s; }
+  &:nth-child(2) { animation-delay: 0.2s; }
+  &:nth-child(3) { animation-delay: 0.3s; }
+}

@@ -1,0 +1,32 @@
+// Миксин для flexbox
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+// Миксин для адаптивного текста
+@mixin responsive-text($min-size, $max-size) {
+  font-size: clamp(#{$min-size}, 2vw, #{$max-size});
+}
+
+// Миксин для кнопок
+@mixin button-style($bg-color, $text-color) {
+  background-color: $bg-color;
+  color: $text-color;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: darken($bg-color, 10%);
+  }
+}
