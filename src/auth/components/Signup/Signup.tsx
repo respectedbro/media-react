@@ -1,9 +1,10 @@
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth';
+import {doc, setDoc} from 'firebase/firestore';
+import {db} from '@/firebase/config.ts';
 
-
-import styles from './Singup.module.scss'
+import styles from './Singup.module.scss';
 
 const Signup = () => {
     const auth = getAuth();
@@ -12,31 +13,66 @@ const Signup = () => {
     const [authing, setAuthing] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('');
+
+    const [fullName, setFullName] = useState('');
+    const [age, setAge] = useState('');
+    const [city, setCity] = useState('');
+
     const [error, setError] = useState('');
 
 
-
     const singUpWithEmail = async () => {
-        if (password !==confirmPassword) {
-            setError('Не совпадают')
-            return
+        if (password !== confirmPassword) {
+            setError('Не совпадают');
+            return;
         }
 
-        setAuthing(true)
-        setError('')
+        if (!fullName) {
+            setError('Введите имя');
+            return;
+        }
 
-        createUserWithEmailAndPassword(auth, email, password)
-            .then(res => {
-                console.log(res.user.uid);
-                navigate('/')
-            })
-            .catch(err => {
-                console.log(err.message);
-                setError(err.message)
-                setAuthing(false)
-            })
-    }
+        if (!age || parseInt(age) < 0 || parseInt(age) > 100) {
+            setError('ВВедите корректный возраст');
+        }
+
+        setAuthing(true);
+        setError('');
+
+        try {
+            //криейтим пользователя в Firebase Auth
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+
+//данныее в Firestore
+            await setDoc(doc(db, 'users', user.uid), {
+                uid: user.uid,
+                email: user.email,
+                fullName: fullName.trim(),
+                age: parseInt(age),
+                city: city.trim(),
+                createAt: new Date().toISOString()
+            });
+            // .then(res => {
+            //     console.log(res.user.uid);
+            //     navigate('/');
+            // })
+            // .catch(err => {
+            //     console.log(err.message);
+            //     setError(err.message);
+            //     setAuthing(false);
+            // });
+
+            console.log('user создан -', user.uid);
+            navigate('/');
+        } catch (err: any) {
+            console.log(err.message);
+            setError(err.message);
+            setAuthing(false);
+        }
+
+    };
     return (
         <div className={styles.container}>
 
@@ -49,28 +85,58 @@ const Signup = () => {
 
                     <div className={styles.inputGroup}>
                         <input
-                            type='email'
-                            placeholder='Email'
+                            type="text"
+                            placeholder="Имя"
+                            className={styles.input}
+                            value={fullName}
+                            onChange={(e) => setFullName(e.target.value)}
+                            required
+                        />
+                        <input
+                            type="number"
+                            placeholder="Возраст"
+                            className={styles.input}
+                            value={age}
+                            onChange={(e) => setAge(e.target.value)}
+                            min="0"
+                            max="100"
+                            required
+                        />
+                        <input
+                            type="text"
+                            placeholder="Город"
+                            className={styles.input}
+                            value={city}
+                            onChange={(e) => setCity(e.target.value)}
+                            required
+                        />
+
+                        <input
+                            type="email"
+                            placeholder="Email"
                             className={styles.input}
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            required
                         />
                         <input
-                            type='password'
-                            placeholder='Password'
+                            type="password"
+                            placeholder="Пароль"
                             className={styles.input}
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            required
                         />
                         <input
-                            type='password'
-                            placeholder='Re-Enter Password'
+                            type="password"
+                            placeholder="Повтрите пароль"
                             className={styles.input}
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
+                            required
                         />
-                    </div>
 
+                    </div>
 
 
                     <div className={styles.buttonGroup}>
@@ -92,7 +158,7 @@ const Signup = () => {
                         <p className={styles.footerText}>
                             Уже есть аккаунт?
                             <span className={styles.footerLink}>
-                                <a href='/login'>Войти</a>
+                                <a href="/login">Войти</a>
                             </span>
                         </p>
                     </div>

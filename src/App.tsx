@@ -1,12 +1,13 @@
+import Profile from '@/profile/components/Profile.tsx';
 
 function App() {
 
 
-  return (
-    <h1>
-        Вы вошли в систему
-    </h1>
-  )
+    return (
+        <>
+            <Profile/>
+        </>
+    );
 }
 
-export default App
+export default App;
