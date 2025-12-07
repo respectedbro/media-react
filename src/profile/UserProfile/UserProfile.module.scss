@@ -1,0 +1,11 @@
+@import '@/styles/variables';
+
+.container {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(135deg, $gray-100 0%, $gray-200 100%);
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+

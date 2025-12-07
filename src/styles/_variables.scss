@@ -19,10 +19,34 @@ $font-size-base: 16px;
 $font-size-sm: 14px;
 $font-size-lg: 18px;
 
-//vars
+//переменные разное
 $dark-bg: #282c34;
 $darker-bg: #1a1a1a;
 $white: #ffffff;
 $gray-400: #9ca3af;
 $gray-500: #6b7280;
 $red-500: #ef4444;
+
+//из профиля
+$primary-color: #4361ee;
+$primary-light: #4895ef;
+$secondary-color: #3f37c9;
+$success-color: #4cc9f0;
+$danger-color: #f72585;
+$warning-color: #f8961e;
+$dark-color: #1a1a1a;
+$light-color: #f8f9fa;
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #6c757d;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+$white: #ffffff;
+$border-radius: 12px;
+$box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+$box-shadow-hover: 0 15px 50px rgba(0, 0, 0, 0.12);
+$transition: all 0.3s ease;
