@@ -1,0 +1,27 @@
+@import "@/styles/variables";
+
+.friendsSection {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  background: $white;
+  border-radius: $border-radius;
+  padding: 25px;
+  box-shadow: $box-shadow;
+
+  @media (max-width: 992px) {
+    grid-column: 1;
+    grid-row: 3;
+  }
+  .friendsHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+
+    .friendsTitle {
+      font-size: 20px;
+      color: $gray-900;
+      font-weight: 600;
+    }
+  }
+}

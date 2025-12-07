@@ -1,0 +1,52 @@
+@import "@/styles/variables";
+
+.profileDetails {
+  grid-column: 1;
+  grid-row: 2;
+  background: $white;
+  border-radius: $border-radius;
+  padding: 25px;
+  box-shadow: $box-shadow;
+
+  .detailsCard {
+    .detailsTitle {
+      font-size: 20px;
+      color: $gray-900;
+      margin-bottom: 25px;
+      font-weight: 600;
+      padding-bottom: 15px;
+      border-bottom: 2px solid $gray-200;
+    }
+
+    .detailsList {
+      margin-bottom: 25px;
+
+      .detailItem {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 0;
+        border-bottom: 1px solid $gray-100;
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        .detailLabel {
+          color: $gray-600;
+          font-size: 15px;
+        }
+
+        .detailValue {
+          color: $gray-900;
+          font-size: 16px;
+          font-weight: 500;
+        }
+        .detailValueOnline {
+          color: #4CAF50;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
