@@ -1,55 +1,67 @@
 import {useEffect, useState} from 'react';
 import {ProfileHeader} from '@/profile/ProfileHeader/ProfileHeader.tsx';
-import {doc, getDoc} from 'firebase/firestore';
+import {doc, getDoc, getDocs, collection} from 'firebase/firestore';
 import styles from './UserProfile.module.scss';
+import {type UserData} from '@/types/user.ts';
 import {auth, db} from '@/firebase/config.ts';
 import {ProfileInfo} from '@/profile/ProfileInfo/ProfileInfo.tsx';
+import {ProfileDetails} from '@/profile/ProfileDetails/ProfileDetails.tsx';
+import {FriendsList} from '@/profile/FriendsList/FriendsList.tsx';
 
-interface UserData {
-    uid: string;
-    email: string;
-    fullName: string;
-    age: number;
-    city: string;
-    createdAt: string;
-}
 
 const UserProfile = () => {
     const [userData, setUserData] = useState<UserData | null>(null);
-    const [userDataLoading, setUserDataLoading] = useState(true)
+    const [loading, setLoading] = useState(true);
+    const [allUsers, setAllUsers] = useState<UserData[]>([])
 
     useEffect(() => {
-        const fetchUserData = async () => {
+        const fetchData = async () => {
             const currentUser = auth.currentUser;
 
             if (!currentUser) {
-                console.error('Пользователь не авторизован');
-                setUserDataLoading(false);
+                console.log('Пользователь не авторизован');
+                setLoading(false);
                 return;
             }
 
             try {
+                // 1. Загружаем данные текущего пользователя
                 const userDoc = await getDoc(doc(db, 'users', currentUser.uid));
 
                 if (userDoc.exists()) {
                     setUserData(userDoc.data() as UserData);
-                } else {
-                    console.error('Данные не найдены');
                 }
+
+                // 2. Загружаем ВСЕХ пользователей из Firebase
+                const usersSnapshot = await getDocs(collection(db, 'users'));
+                const usersList = usersSnapshot.docs
+                    .map(doc => ({
+                        id: doc.id,
+                        ...doc.data()
+                    } as UserData))
+                    .filter(user => user.uid !== currentUser.uid); // Исключаем себя
+
+                setAllUsers(usersList);
+                console.log('Все пользователи:', usersList);
+
+
             } catch (error) {
-                console.error('Ошибка загрузки', error);
+                console.error('Ошибка загрузки:', error);
             } finally {
-                setUserDataLoading(false);
+                setLoading(false);
             }
         };
 
-        fetchUserData();
+        fetchData();
     }, []);
 
-    if (userDataLoading) {
+    if (loading) {
         return (
-            <div>Loading...</div>
-        )
+            <div className={styles.loadingContainer}>
+                <div className={styles.loadingSpinner}></div>
+                <p className={styles.loadingText}>Загрузка профиля...</p>
+            </div>
+        );
     }
     return (
         <>
@@ -57,6 +69,8 @@ const UserProfile = () => {
                 <ProfileHeader/>
                 <div className={styles.profileWrapper}>
                     <ProfileInfo userData={userData}/>
+                    <ProfileDetails userData={userData}/>
+                    <FriendsList allUsers={allUsers}/>
                 </div>
 
             </div>

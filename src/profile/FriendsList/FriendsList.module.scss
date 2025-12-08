@@ -1,0 +1,121 @@
+@import "@/styles/variables";
+
+.friendsSection {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  background: $white;
+  border-radius: $border-radius;
+  padding: 25px;
+  box-shadow: $box-shadow;
+
+  @media (max-width: 992px) {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  .friendsHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+
+    .friendsTitle {
+      font-size: 20px;
+      color: $gray-900;
+      font-weight: 600;
+    }
+
+    .viewAllLink {
+      color: $primary-color;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: $transition;
+
+      &:hover {
+        color: $primary-light;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .friendsList {
+    display: grid;
+    gap: 15px;
+    margin-bottom: 20px;
+
+    .friendCard {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 15px;
+      background: $gray-100;
+      border-radius: 10px;
+      transition: $transition;
+
+      &:hover {
+        background: $gray-200;
+        transform: translateX(5px);
+      }
+
+      .friendAvatar {
+        position: relative;
+
+        .friendInitial {
+          width: 45px;
+          height: 45px;
+          background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: $white;
+          font-weight: 600;
+          font-size: 18px;
+        }
+
+        .friendStatus {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          width: 12px;
+          height: 12px;
+          border: 2px solid $white;
+          border-radius: 50%;
+        }
+      }
+
+      .friendInfo {
+        flex: 1;
+
+        .friendName {
+          display: block;
+          color: $gray-900;
+          font-weight: 500;
+          font-size: 15px;
+          margin-bottom: 3px;
+        }
+
+        .friendStatusText {
+          font-size: 13px;
+          color: $gray-600;
+        }
+      }
+
+      .messageBtn {
+        background: transparent;
+        border: none;
+        font-size: 18px;
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 6px;
+        transition: $transition;
+
+        &:hover {
+          background: $gray-300;
+        }
+      }
+    }
+  }
+
+}
