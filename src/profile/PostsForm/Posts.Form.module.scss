@@ -1,0 +1,88 @@
+@import '@/styles/variables';
+
+.newPostForm {
+  background: $gray-100;
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 30px;
+  animation: slideDown 0.3s ease;
+
+  .postTitleInput {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 2px solid $gray-300;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: $transition;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+    }
+  }
+
+  .postContentInput {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 2px solid $gray-300;
+    border-radius: 8px;
+    font-size: 16px;
+    resize: vertical;
+    transition: $transition;
+    min-height: 120px;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+    }
+  }
+
+  .postActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+
+    .cancelButton {
+      background: transparent;
+      color: $gray-600;
+      border: 2px solid $gray-400;
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: $transition;
+
+      &:hover {
+        background: $gray-400;
+        color: $gray-900;
+      }
+    }
+
+    .publishButton {
+      background: linear-gradient(135deg, #4CAF50, #8BC34A);
+      color: $white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: $transition;
+
+      &:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+  }
+}

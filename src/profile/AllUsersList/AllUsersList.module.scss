@@ -1,8 +1,8 @@
 @import "@/styles/variables";
 
-.friendsSection {
+.usersSection {
   grid-column: 2;
-  grid-row: 1;
+  grid-row: 2;
   background: $white;
   border-radius: $border-radius;
   padding: 25px;
@@ -13,13 +13,13 @@
     grid-row: 3;
   }
 
-  .friendsHeader {
+  .usersHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 25px;
 
-    .friendsTitle {
+    .usersTitle {
       font-size: 20px;
       color: $gray-900;
       font-weight: 600;
@@ -39,12 +39,12 @@
     }
   }
 
-  .friendsList {
+  .usersList {
     display: grid;
     gap: 15px;
     margin-bottom: 20px;
 
-    .friendCard {
+    .userCard {
       display: flex;
       align-items: center;
       gap: 15px;
@@ -58,10 +58,10 @@
         transform: translateX(5px);
       }
 
-      .friendAvatar {
+      .userAvatar {
         position: relative;
 
-        .friendInitial {
+        .userInitial {
           width: 45px;
           height: 45px;
           background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
@@ -74,7 +74,7 @@
           font-size: 18px;
         }
 
-        .friendStatus {
+        .userStatus {
           position: absolute;
           bottom: 0;
           right: 0;
@@ -86,10 +86,10 @@
         }
       }
 
-      .friendInfo {
+      .userInfo {
         flex: 1;
 
-        .friendName {
+        .userName {
           display: block;
           color: $gray-900;
           font-weight: 500;
@@ -97,13 +97,13 @@
           margin-bottom: 3px;
         }
 
-        .friendStatusText {
+        .userStatusText {
           font-size: 13px;
           color: $gray-600;
         }
       }
 
-      .deleteBtn {
+      .addBtn {
         padding: 10px 25px;
         border-radius: 8px;
         font-size: 14px;
