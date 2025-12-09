@@ -1,36 +1,31 @@
-import {type UserData} from '@/types/user.ts'
+
 import styles from './FriendsList.module.scss'
 
-interface FriendsListProps {
-    allUsers: UserData[]
-}
+export const FriendsList = () => {
 
-export const FriendsList = ({allUsers}:FriendsListProps) => {
+return (
+    <div className={styles.friendsSection}>
+        <div className={styles.friendsHeader}>
+            <h3 className={styles.friendsTitle}>Друзья(0)</h3>
+        </div>
 
-    return (
-        <div className={styles.friendsSection}>
-            <div className={styles.friendsHeader}>
-                <h3 className={styles.friendsTitle}>Пользователи: {allUsers.length}</h3>
-            </div>
-            <div className={styles.friendsList}>
-                {allUsers.slice(0, 4).map((user) => (
-                    <div className={styles.friendCard} key={user.uid}>
-                        <div className={styles.friendAvatar}>
-                            <span className={styles.friendsInitial}>Аватар</span>
-                        </div>
-                        <div className={styles.friendInfo}>
-                            <span className={styles.friendName}>{user.fullName}</span>
-                            <span className={styles.friendStatusText}>
-                                {/*TODO:Добавить статус к пользователям*/}
-                                Не в сети /
-                            </span>
+        <div className={styles.friendsList}>
 
-                        </div>
-                        <button className={styles.messageBtn}>Добавить</button>
+                <div className={styles.friendCard}>
+                    <div className={styles.friendAvatar}>
+                        <span className={styles.friendInitial}>F</span>
+                        <div className={styles.friendStatus}></div>
                     </div>
-                ))}
-            </div>
+                    <div className={styles.friendInfo}>
+                        <span className={styles.friendName}></span>
+                        <span className={styles.friendStatusText}></span>
+                    </div>
+                    <button className={styles.deleteBtn}>
+                        Удалить
+                    </button>
+                </div>
 
         </div>
-    )
+    </div>
+)
 }
