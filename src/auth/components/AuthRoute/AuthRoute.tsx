@@ -2,7 +2,7 @@ import * as React from 'react';
 import {getAuth, onAuthStateChanged} from 'firebase/auth';
 import {useNavigate} from 'react-router-dom';
 import {useEffect, useState} from 'react';
-import styles from '@/profile/UserProfile/UserProfile.module.scss';
+import styles from '@/profile/screens/UserProfile.module.scss';
 
 export interface IAuthRouteProps {
     children:React.ReactNode

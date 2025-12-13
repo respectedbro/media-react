@@ -1,4 +1,4 @@
-import {type UserData} from '@/types/user.ts';
+import {type UserData} from '@/types/types.ts';
 import styles from './AllUsersList.module.scss';
 
 interface AllUsersListProps {

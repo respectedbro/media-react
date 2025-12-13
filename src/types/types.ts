@@ -19,7 +19,7 @@ export interface Post {
     comments:number,
     createdAt: Timestamp;
     authorName: string;
-    id?: string;
+    id: string;
 
 }
 
@@ -28,4 +28,11 @@ export interface newPost {
     content: string;
 }
 
-export type PostCreatePayload = Omit<Post, 'id'>;
+export type PostCreatePayload = {
+    title: string;
+    content: string;
+    userId: string;
+    authorName: string;
+    likes: number;
+    comments: number;
+};
