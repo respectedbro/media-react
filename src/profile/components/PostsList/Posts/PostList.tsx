@@ -6,9 +6,11 @@ import {EmptyPosts} from '@/profile/components/PostsList/EmptyPosts/EmptyPosts.t
 interface PostListProps {
     posts: Post[];
     onDelete: (id: string) => void | Promise<void>;
+    currentUserId:string,
+    onToggleLike:(postId:string) => void
 }
 
-export const PostList = ({posts, onDelete}:PostListProps) => {
+export const PostList = ({posts, onDelete, currentUserId, onToggleLike}:PostListProps) => {
     if (!posts.length) {
         return <EmptyPosts/>
     }
@@ -19,6 +21,8 @@ export const PostList = ({posts, onDelete}:PostListProps) => {
                     key={post.id}
                     post={post}
                     onDelete={onDelete}
+                    onToggleLike={onToggleLike}
+                    currentUserId={currentUserId}
                 />
             ))}
 

@@ -5,10 +5,12 @@ import styles from './PostItem.module.scss';
 interface PostItemProps {
     post: Post;
     onDelete: (id: string) => void | Promise<void>;
+    currentUserId:string,
+    onToggleLike:(postId:string) => void
 }
 
 
-export const PostItem = ({post, onDelete}: PostItemProps) => {
+export const PostItem = ({post, onDelete, currentUserId, onToggleLike}: PostItemProps) => {
     return (
         <article className={styles.postCard}>
             <header className={styles.postHeader}>
@@ -40,8 +42,8 @@ export const PostItem = ({post, onDelete}: PostItemProps) => {
             <p className={styles.postCardContent}>{post.content}</p>
 
             <footer className={styles.postStats}>
-                <button className={styles.likeBtn}>
-                    ❤️ {post.likes}
+                <button className={styles.likeBtn} onClick={() => onToggleLike(post.id)}>
+                    {post.likedBy.includes(currentUserId) ? '❤️' : '🤍'} {post.likes}
                 </button>
                 <button className={styles.commentBtn}>
                     💬 {post.comments}

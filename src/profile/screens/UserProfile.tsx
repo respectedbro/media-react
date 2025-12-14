@@ -11,7 +11,7 @@ import { usePosts } from '@/profile/hooks/usePosts';
 import { useAllUsers } from '@/profile/hooks/useAllUsers';
 import { useProfileUI } from '@/profile/hooks/useProfileUI';
 
-import type { PostCreatePayload } from '@/types/types';
+
 
 import styles from './UserProfile.module.scss';
 
@@ -30,7 +30,7 @@ const UserProfile = () => {
     // const [creatingPost, setCreatingPost] = useState(false);
 
     const {user, loading} = useUserData()
-    const {posts, createPost, deletePost} = usePosts(user?.uid)
+    const {posts, createPost, deletePost, toggleLike} = usePosts(user?.uid, user?.fullName)
     const {users: allUsers} = useAllUsers(user?.uid)
 
     const ui = useProfileUI()
@@ -49,20 +49,6 @@ const UserProfile = () => {
     if (!user) {
         return <div>Пользователь не найден</div>;
     }
-
-    const handleCreatePost = async (data: { title: string; content: string }) => {
-        const payload: PostCreatePayload = {
-            title: data.title,
-            content: data.content,
-            userId: user.uid,
-            authorName: user.fullName,
-            likes: 0,
-            comments: 0,
-        };
-
-        await createPost(payload);
-        ui.closeCreatePost();
-    };
 
     return (
         <div className={styles.container}>
@@ -91,12 +77,15 @@ const UserProfile = () => {
                 {ui.creatingPost && (
                     <PostsForm
 
-                        onCreate={handleCreatePost}
+                        onCreate={async (data) => {
+                            await createPost(data)
+                            ui.closeCreatePost()
+                        }}
                         onCancel={ui.closeCreatePost}
                     />
                 )}
 
-                <PostList posts={posts} onDelete={deletePost} />
+                <PostList posts={posts} onDelete={deletePost} currentUserId={user.uid} onToggleLike={(postId) => toggleLike(postId, user.uid)} />
             </div>
         </div>
 

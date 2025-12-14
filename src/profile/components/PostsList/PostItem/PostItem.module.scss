@@ -1,9 +1,5 @@
 @import "@/styles/variables";
 
-.postsBox {
-  display: grid;
-  gap: 25px;
-
   .postCard {
     background: $white;
     border-radius: 12px;
@@ -130,31 +126,3 @@
       }
     }
   }
-
-  .noPosts {
-    text-align: center;
-    padding: 60px 30px;
-    background: $gray-100;
-    border-radius: $border-radius;
-
-    .noPostsIcon {
-      font-size: 60px;
-      margin-bottom: 20px;
-      opacity: 0.5;
-    }
-
-    .noPostsText {
-      font-size: 20px;
-      color: $gray-700;
-      margin-bottom: 10px;
-      font-weight: 600;
-    }
-
-    .noPostsSubtext {
-      color: $gray-600;
-      font-size: 16px;
-      max-width: 400px;
-      margin: 0 auto;
-    }
-  }
-}
