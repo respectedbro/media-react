@@ -33,7 +33,16 @@ export interface Comment {
 }
 
 
-export type PostCreatePayload = {
+export interface PostCreatePayload  {
     title: string;
     content: string;
-};
+}
+
+export interface Comment {
+    id:string,
+    postId:string
+    userId:string
+    authorName:string
+    content:string
+    createdAt:Timestamp
+}

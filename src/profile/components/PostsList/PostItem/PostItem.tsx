@@ -1,54 +1,53 @@
 import type {Post} from '@/types/types.ts';
 
 import styles from './PostItem.module.scss';
+import {useState} from 'react';
+import {PostsComment} from '@/profile/components/PostsList/PostItem/PostComments/PostComment.tsx';
+import {PostHeader} from '@/profile/components/PostsList/PostItem/PostHeader/PostHeader.tsx';
+import {PostContent} from '@/profile/components/PostsList/PostItem/PostContent/PostContent.tsx';
+import {PostActions} from '@/profile/components/PostsList/PostItem/PostActions/PostActions.tsx';
 
 interface PostItemProps {
     post: Post;
-    onDelete: (id: string) => void | Promise<void>;
+    currentUserName:string
     currentUserId:string,
-    onToggleLike:(postId:string) => void
+    onCommentAdded:(postId:string) => void
+    onDelete: (id: string) => void | Promise<void>;
 }
 
 
-export const PostItem = ({post, onDelete, currentUserId, onToggleLike}: PostItemProps) => {
+export const PostItem = ({post, onDelete, currentUserId, currentUserName, onCommentAdded}: PostItemProps) => {
+    const [commentsOpen, setCommentsOpen] = useState(false);
+
+
     return (
-        <article className={styles.postCard}>
-            <header className={styles.postHeader}>
-                <div className={styles.postAuthor}>
-                    <div className={styles.postAuthorAvatar}>
-                        {post.authorName?.[0]}
-                    </div>
+        <div className={styles.postCard}>
+            <PostHeader
+                authorName={post.authorName}
+                createdAt={post.createdAt}
+                onDelete={() => onDelete(post.id)}
+            />
 
-                    <div className={styles.postAuthorInfo}>
-                        <h4 className={styles.postAuthorName}>
-                            {post.authorName}
-                        </h4>
+            <PostContent
+                title={post.title}
+                content={post.content}
+            />
 
-                        <time className={styles.postDate}>
-                            {post.createdAt?.toDate?.().toLocaleString?.() ?? ''}
-                        </time>
-                    </div>
-                </div>
+            <PostActions
+                likes={post.likes}
+                onLike={() => {}}
+                commentsCount={post.comments}
+                onToggleComments={() => setCommentsOpen(p => !p)}
+            />
 
-                <button
-                    className={styles.deletePostBtn}
-                    onClick={() => onDelete(post.id)}
-                >
-                    ×
-                </button>
-            </header>
-
-            <h3 className={styles.postCardTitle}>{post.title}</h3>
-            <p className={styles.postCardContent}>{post.content}</p>
-
-            <footer className={styles.postStats}>
-                <button className={styles.likeBtn} onClick={() => onToggleLike(post.id)}>
-                    {post.likedBy.includes(currentUserId) ? '❤️' : '🤍'} {post.likes}
-                </button>
-                <button className={styles.commentBtn}>
-                    💬 {post.comments}
-                </button>
-            </footer>
-        </article>
+            {commentsOpen && (
+            <PostsComment
+                postId={post.id}
+                currentUserId={currentUserId}
+                currentUserName={currentUserName}
+                onCommentAdded={() => onCommentAdded(post.id)}
+            />
+            )}
+        </div>
     );
 };

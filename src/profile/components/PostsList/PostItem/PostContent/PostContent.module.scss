@@ -1,0 +1,33 @@
+@import "@/styles/variables";
+
+.postCard {
+  background: $white;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid $gray-200;
+  transition: $transition;
+
+  //&:hover {
+  //  transform: translateY(-5px);
+  //  box-shadow: $box-shadow-hover;
+  //  border-color: $primary-light;
+  //}
+
+
+  .postCardTitle {
+    font-size: 20px;
+    color: $gray-900;
+    margin-bottom: 15px;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .postCardContent {
+    font-size: 16px;
+    color: $gray-700;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+}
