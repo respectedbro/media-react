@@ -13,20 +13,21 @@ export const PostsComment = ({  postId, currentUserId, currentUserName}:PostComm
     const {comments, addComment} = useComments(postId)
 
 
+    const handleSubmit = async (text: string) => {
+        if (!currentUserId || !currentUserName) return;
+
+        await addComment({
+            userId: currentUserId,
+            authorName: currentUserName,
+            content: text,
+        });
+    };
 
     return (
         <div>
             <CommentsList comments={comments}/>
 
-            <CommentForm
-                onSubmit={text =>
-                    addComment({
-                        userId: currentUserId,
-                        authorName: currentUserName,
-                        content: text,
-                    })
-                }
-            />
+            <CommentForm onSubmit={handleSubmit}/>
         </div>
     )
 }

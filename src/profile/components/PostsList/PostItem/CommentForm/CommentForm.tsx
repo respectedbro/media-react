@@ -1,7 +1,7 @@
 import {useState} from 'react';
 
 interface CommentFormProps {
-    onSubmit: (text:string) => void
+    onSubmit: (text:string) => Promise<void>
 }
 
 const CommentForm = ({onSubmit}:CommentFormProps ) => {
@@ -9,10 +9,10 @@ const CommentForm = ({onSubmit}:CommentFormProps ) => {
 
     return (
         <form
-            onSubmit={e => {
+            onSubmit={async e => {
                 e.preventDefault();
                 if (!text.trim()) return;
-                onSubmit(text);
+                await onSubmit(text);
                 setText('');
             }}
         >
