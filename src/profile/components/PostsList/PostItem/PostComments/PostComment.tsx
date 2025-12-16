@@ -14,8 +14,6 @@ export const PostsComment = ({  postId, currentUserId, currentUserName}:PostComm
 
 
     const handleSubmit = async (text: string) => {
-        if (!currentUserId || !currentUserName) return;
-
         await addComment({
             userId: currentUserId,
             authorName: currentUserName,

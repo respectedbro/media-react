@@ -5,9 +5,9 @@ export interface UserData {
     uid: string;
     email: string;
     fullName: string;
+    city?: string;
     status?: 'online' | 'offline',
     age?: number;
-    city?: string;
     createAt?: string;
 }
 
