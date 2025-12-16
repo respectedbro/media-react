@@ -1,4 +1,4 @@
-import UserProfile from '@/profile/UserProfile/UserProfile.tsx';
+import UserProfile from '@/profile/screens/UserProfile.tsx';
 
 function App() {
   return (

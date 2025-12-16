@@ -1,31 +1,40 @@
 import type {Timestamp} from 'firebase/firestore';
 
 export interface UserData {
-    id?:string,
+    id?: string,
     uid: string;
     email: string;
     fullName: string;
-    status?:'online' | 'offline',
-    age?: number;
     city?: string;
+    status?: 'online' | 'offline',
+    age?: number;
     createAt?: string;
 }
 
 export interface Post {
+    id: string;
     title: string;
-    content:string,
+    content: string,
     userId: string;
-    likes:number,
-    comments:number,
-    createdAt: Timestamp;
     authorName: string;
-    id?: string;
-
+    likes: number,
+    likedBy: string[];
+    comments: number,
+    createdAt: Timestamp;
 }
 
-export interface newPost {
+export interface Comment {
+    id: string;
+    postId: string;
+    userId: string;
+    authorName: string;
+    content: string;
+    createdAt: Timestamp;
+}
+
+
+export interface PostCreatePayload  {
     title: string;
     content: string;
 }
 
-export type PostCreatePayload = Omit<Post, 'id'>;

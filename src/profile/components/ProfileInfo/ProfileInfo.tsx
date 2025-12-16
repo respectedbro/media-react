@@ -1,5 +1,5 @@
 import styles from './ProfileInfo.module.scss'
-import {type UserData} from '@/types/user.ts';
+import {type UserData} from '@/types/types.ts';
 
 interface ProfileInfoProps {
     userData: UserData | null
