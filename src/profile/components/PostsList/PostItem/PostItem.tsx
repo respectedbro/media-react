@@ -8,15 +8,16 @@ import {PostContent} from '@/profile/components/PostsList/PostItem/PostContent/P
 import {PostActions} from '@/profile/components/PostsList/PostItem/PostActions/PostActions.tsx';
 
 interface PostItemProps {
-    post: Post;
-    currentUserName:string
-    currentUserId:string,
-    onCommentAdded:(postId:string) => void
-    onDelete: (id: string) => void | Promise<void>;
+    post: Post
+    currentUserName: string
+    currentUserId: string
+    onCommentAdded: (postId: string) => void
+    onDelete: (id: string) => void | Promise<void>
+    onLike: () => void
 }
 
 
-export const PostItem = ({post, onDelete, currentUserId, currentUserName, onCommentAdded}: PostItemProps) => {
+export const PostItem = ({post, onDelete, currentUserId, currentUserName, onCommentAdded, onLike}: PostItemProps) => {
     const [commentsOpen, setCommentsOpen] = useState(false);
 
 
@@ -34,9 +35,10 @@ export const PostItem = ({post, onDelete, currentUserId, currentUserName, onComm
             />
 
             <PostActions
-                likes={post.likes}
-                onLike={() => {}}
-                commentsCount={post.comments}
+                likes={post.likesCount}
+                isLiked={post.likedBy.includes(currentUserId)}
+                commentsCount={post.commentsCount}
+                onLike={onLike}
                 onToggleComments={() => setCommentsOpen(p => !p)}
             />
 

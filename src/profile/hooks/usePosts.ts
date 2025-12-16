@@ -47,7 +47,8 @@ export const usePosts = (userId?: string, authorName?: string) => {
                 likes: 0,
                 likedBy: [],
                 comments: 0,
-                createdAt: Timestamp.now()
+                createdAt: Timestamp.now(),
+                commentsCount: 0,
             };
 
             const ref = await addDoc(collection(db, 'posts'), post);
