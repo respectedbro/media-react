@@ -13,7 +13,8 @@ interface PostListProps {
 
 export const PostList = ({posts, onDelete}:PostListProps) => {
     const { user: currentUser, loading } = useCurrentUser();
-    const [localPosts, setLocalPosts] = useState<Post[]>(posts)
+    const [localPosts, setLocalPosts] = useState<Post[]>(posts);
+    const [likingPostId, setLikingPostId] = useState<string | null>(null)
 
 
 
@@ -42,6 +43,10 @@ export const PostList = ({posts, onDelete}:PostListProps) => {
     };
 
     const handleToggleLike = async (postId: string) => {
+        if (likingPostId === postId) return
+
+        setLikingPostId(postId)
+
         let hasLiked = false
 
         setLocalPosts(prev =>
@@ -55,15 +60,17 @@ export const PostList = ({posts, onDelete}:PostListProps) => {
                     likedBy: hasLiked
                         ? post.likedBy.filter(id => id !== userId)
                         : [...post.likedBy, userId],
-                    likesCount: hasLiked
-                        ? post.likesCount - 1
-                        : post.likesCount + 1,
                 }
             })
         )
 
-        await toggleLike(postId, userId, hasLiked)
+        try {
+            await toggleLike(postId, userId, hasLiked)
+        } finally {
+            setLikingPostId(null)
+        }
     }
+
 
 
     return (
@@ -77,6 +84,7 @@ export const PostList = ({posts, onDelete}:PostListProps) => {
                     currentUserId={currentUser.uid}
                     currentUserName={currentUser.fullName}
                     onCommentAdded={handleCommentAdded}
+                    isLiking={likingPostId === post.id}
                 />
             ))}
 

@@ -8,19 +8,21 @@ interface PostActionsProps {
     commentsCount: number;
     onLike: () => void;
     onToggleComments: () => void;
+    disabled?: boolean;
 
 }
 
 
-export const PostActions = ({likes, isLiked, commentsCount, onLike, onToggleComments}: PostActionsProps) => {
+export const PostActions = ({disabled, likes, isLiked, commentsCount, onLike, onToggleComments}: PostActionsProps) => {
     return (
 
             <div className={styles.postStats}>
                 <button
                     className={isLiked ? styles.liked : styles.likeBtn}
                     onClick={onLike}
+                    disabled={disabled}
                 >
-                    ❤️ {likes}
+                        ❤️ {likes}
                 </button>
                 <button className={styles.commentBtn} onClick={onToggleComments}>
                     💬 {commentsCount}
