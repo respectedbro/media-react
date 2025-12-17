@@ -9,6 +9,7 @@ export interface UserData {
     status?: 'online' | 'offline',
     age?: number;
     createAt?: string;
+    friends?:string[]
 }
 
 export interface Post {
@@ -19,7 +20,6 @@ export interface Post {
     authorName: string;
     likesCount: number;
     likedBy: string[];
-
     createdAt: Timestamp;
     commentsCount: number;
 }

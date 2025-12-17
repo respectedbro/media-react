@@ -11,26 +11,13 @@ import { usePosts } from '@/profile/hooks/usePosts';
 import { useAllUsers } from '@/profile/hooks/useAllUsers';
 import { useProfileUI } from '@/profile/hooks/useProfileUI';
 
-
-
 import styles from './UserProfile.module.scss';
-
-// import {useEffect, useState} from 'react';
-// import {doc, getDoc, getDocs, query, collection, where, Timestamp, addDoc, deleteDoc} from 'firebase/firestore';
-// import {auth, db} from '@/firebase/config.ts';
-// import {type Post, type UserData, type PostCreatePayload} from '@/types/types.ts';
 
 
 const UserProfile = () => {
-    // const [userData, setUserData] = useState<UserData | null>(null);
-    // const [loading, setLoading] = useState(true);
-    // const [allUsers, setAllUsers] = useState<UserData[]>([]);
-    // const [newPost, setNewPost] = useState({title: '', content: ''});
-    // const [posts, setPosts] = useState<Post[]>([]);
-    // const [creatingPost, setCreatingPost] = useState(false);
 
     const {user, loading} = useUserData()
-    const {posts, createPost, deletePost, toggleLike} = usePosts(user?.uid, user?.fullName)
+    const {posts, createPost, deletePost} = usePosts(user?.uid, user?.fullName)
     const {users: allUsers} = useAllUsers(user?.uid)
 
     const ui = useProfileUI()
@@ -55,7 +42,7 @@ const UserProfile = () => {
             <ProfileHeader />
 
             <div className={styles.profileWrapper}>
-                <ProfileInfo userData={user} />
+                <ProfileInfo userData={user} postsCount={posts.length}/>
                 <ProfileDetails userData={user} />
                 <FriendsList />
                 <AllUsersList allUsers={allUsers} />
@@ -85,7 +72,7 @@ const UserProfile = () => {
                     />
                 )}
 
-                <PostList posts={posts} onDelete={deletePost} currentUserId={user.uid} onToggleLike={(postId) => toggleLike(postId, user.uid)} />
+                <PostList posts={posts} onDelete={deletePost} />
             </div>
         </div>
 
