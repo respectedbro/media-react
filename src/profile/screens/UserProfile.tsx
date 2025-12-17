@@ -4,7 +4,7 @@ import {ProfileDetails} from '@/profile/components/ProfileDetails/ProfileDetails
 import {AllUsersList} from '@/profile/components/AllUsersList/AllUsersList.tsx';
 import {FriendsList} from '@/profile/components/FriendsList/FriendsList.tsx';
 import {PostsForm} from '@/profile/components/PostsForm/PostsForm.tsx';
-import {PostList} from '@/profile/components/PostsList/Posts/PostList.tsx';
+import {PostList} from '@/profile/components/PostsList/PostList/PostList.tsx';
 
 import { useUserData } from '@/profile/hooks/useUserData';
 import { usePosts } from '@/profile/hooks/usePosts';

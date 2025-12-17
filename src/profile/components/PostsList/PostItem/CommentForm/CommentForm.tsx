@@ -1,5 +1,7 @@
 import {useState} from 'react';
 
+import styles from '../PostItem.module.scss'
+
 interface CommentFormProps {
     onSubmit: (text:string) => Promise<void>
 }
@@ -9,6 +11,7 @@ const CommentForm = ({onSubmit}:CommentFormProps ) => {
 
     return (
         <form
+            className={styles.commentForm}
             onSubmit={async e => {
                 e.preventDefault();
                 if (!text.trim()) return;
@@ -18,11 +21,12 @@ const CommentForm = ({onSubmit}:CommentFormProps ) => {
         >
 
             <input
+                className={styles.commentInput}
                 value={text}
                 onChange={e => setText(e.target.value)}
                 placeholder="Написать комментарий"
             />
-            <button type="submit">Отправить</button>
+            <button className={styles.commentBtn} type="submit">Отправить</button>
 
         </form>
     );

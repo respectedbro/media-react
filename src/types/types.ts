@@ -17,10 +17,11 @@ export interface Post {
     content: string,
     userId: string;
     authorName: string;
-    likes: number,
+    likesCount: number;
     likedBy: string[];
-    comments: number,
+
     createdAt: Timestamp;
+    commentsCount: number;
 }
 
 export interface Comment {
@@ -33,7 +34,7 @@ export interface Comment {
 }
 
 
-export interface PostCreatePayload  {
+export interface PostCreatePayload {
     title: string;
     content: string;
 }

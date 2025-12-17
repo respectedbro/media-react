@@ -9,7 +9,7 @@ interface PostCommentProps {
     onCommentAdded: () => void
 }
 
-export const PostsComment = ({  postId, currentUserId, currentUserName}:PostCommentProps) => {
+export const PostsComment = ({  postId, currentUserId, onCommentAdded, currentUserName}:PostCommentProps) => {
     const {comments, addComment} = useComments(postId)
 
 
@@ -19,6 +19,8 @@ export const PostsComment = ({  postId, currentUserId, currentUserName}:PostComm
             authorName: currentUserName,
             content: text,
         });
+
+        onCommentAdded()
     };
 
     return (

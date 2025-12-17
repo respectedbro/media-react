@@ -3,16 +3,25 @@
 .postsBox {
   display: grid;
   gap: 25px;
-  }
+}
 
 .commentsList {
-  background: #e7e7e7;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, -0.95);
+  transition: all 0.3s ease;
+  max-width: 25%;
+}
+
+.commentItem {
+  background: #ffffff;
   border-radius: 12px;
   padding: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   border: 1px solid #e9ecef;
   transition: all 0.3s ease;
-  max-width: 25%;
 }
 
 .noCommentText {
@@ -25,5 +34,49 @@
 
 .commentText {
   color: $gray-800;
+  word-wrap: break-word;
 }
+
+.commentForm {
+  display: flex;
+  gap: 10px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  animation: slideDown 0.3s ease;
+  max-width: 25%;
+  padding: 15px 0;
+
+  .commentInput {
+    padding: 15px;
+    border: 2px solid #dee2e6;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+    }
+  }
+
+  .commentBtn {
+    background: transparent;
+    color: $gray-600;
+    border: 2px solid $gray-400;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: $transition;
+
+    &:hover {
+      background: $gray-400;
+      color: $gray-900;
+    }
+  }
+}
+
+
 

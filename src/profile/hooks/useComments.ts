@@ -6,6 +6,9 @@ import {
     query,
     orderBy,
     Timestamp,
+    doc,
+    updateDoc,
+    increment
 } from 'firebase/firestore';
 import { db } from '@/firebase/config';
 import type { Comment } from '@/types/types';
@@ -45,20 +48,26 @@ export const useComments = (postId: string) => {
             content: string;
         }) => {
             const createdAt = Timestamp.now();
-
+//+комментарий
             const ref = await addDoc(commentsRef, {
-                postId,              // 🔥 ВАЖНО
+                postId,
                 userId: data.userId,
                 authorName: data.authorName,
                 content: data.content,
                 createdAt,
             });
+//+счётчик
 
+            const postRef = doc(db, 'posts', postId)
+            await  updateDoc(postRef, {
+                commentsCount:increment(+1)
+            })
+//обновляем лок стейт
             setComments(prev => [
                 ...prev,
                 {
                     id: ref.id,
-                    postId,             // 🔥 ОБЯЗАТЕЛЬНО
+                    postId,
                     userId: data.userId,
                     authorName: data.authorName,
                     content: data.content,
