@@ -1,18 +1,22 @@
-import {initializeApp} from 'firebase/app'
-import {getAuth} from 'firebase/auth'
-import {getFirestore} from 'firebase/firestore'
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBggp5ScfXt-4nXdY-wUScRCXguJ_-p0F0",
-    authDomain: "social-m-af08b.firebaseapp.com",
-    projectId: "social-m-af08b",
-    storageBucket: "social-m-af08b.firebasestorage.app",
-    messagingSenderId: "567079209522",
-    appId: "1:567079209522:web:6f8a11e91f9cc532bd0a2b"
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
 
-const app = initializeApp(firebaseConfig)
-export const auth = getAuth(app)
-export const db = getFirestore(app)
-export default app
+if (!firebaseConfig.apiKey) {
+    throw new Error("Ошибка firebase-config. Check your .env file.");
+}
+
+const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+export const db = getFirestore(app);
+export default app;
