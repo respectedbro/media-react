@@ -6,22 +6,31 @@ import {FriendsList} from '@/profile/components/FriendsList/FriendsList.tsx';
 import {PostsForm} from '@/profile/components/PostsForm/PostsForm.tsx';
 import {PostList} from '@/profile/components/PostsList/PostList/PostList.tsx';
 
-import { useUserData } from '@/profile/hooks/useUserData';
-import { usePosts } from '@/profile/hooks/usePosts';
-import { useAllUsers } from '@/profile/hooks/useAllUsers';
-import { useProfileUI } from '@/profile/hooks/useProfileUI';
+import {useUserData} from '@/profile/hooks/useUserData';
+import {usePosts} from '@/profile/hooks/usePosts';
+import {useAllUsers} from '@/profile/hooks/useAllUsers';
+import {useProfileUI} from '@/profile/hooks/useProfileUI';
+import {useFriends} from '@/profile/hooks/useFriends'
+import {removeFriend} from '@/profile/hooks/friendsApi'
+import {addFriend} from '@/profile/hooks/friendsApi'
+
 
 import styles from './UserProfile.module.scss';
+import {useMemo} from "react";
 
 
 const UserProfile = () => {
-
     const {user, loading} = useUserData()
     const {posts, createPost, deletePost} = usePosts(user?.uid, user?.fullName)
     const {users: allUsers} = useAllUsers(user?.uid)
 
     const ui = useProfileUI()
 
+    const friendIds = useMemo(() => {
+        return user?.friends ?? []
+    }, [user?.friends])
+
+    const { friends } = useFriends(friendIds)
 
 
     if (loading) {
@@ -39,13 +48,22 @@ const UserProfile = () => {
 
     return (
         <div className={styles.container}>
-            <ProfileHeader />
+            <ProfileHeader/>
 
             <div className={styles.profileWrapper}>
-                <ProfileInfo userData={user} postsCount={posts.length}/>
-                <ProfileDetails userData={user} />
-                <FriendsList />
-                <AllUsersList allUsers={allUsers} />
+                <ProfileInfo userData={user} postsCount={posts.length} friendsCount={user.friends?.length ?? 0}/>
+                <ProfileDetails userData={user}/>
+                <FriendsList friends={friends} onRemoveFriend={async (targetId) => {
+                    await removeFriend(user.uid, targetId)
+                }}/>
+                <AllUsersList
+                    allUsers={allUsers}
+                    currentUserId={user.uid}
+                    friendsIds={user.friends ?? []}
+                    onAddFriend={async (targetId) => {
+                                  await addFriend(user.uid, targetId)
+                              }}
+                />
             </div>
 
             <div className={styles.postsWrapper}>
@@ -72,7 +90,7 @@ const UserProfile = () => {
                     />
                 )}
 
-                <PostList posts={posts} onDelete={deletePost} />
+                <PostList posts={posts} onDelete={deletePost}/>
             </div>
         </div>
 

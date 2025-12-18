@@ -4,10 +4,11 @@ import {type UserData} from '@/types/types.ts';
 interface ProfileInfoProps {
     userData: UserData | null
     postsCount: number
+    friendsCount: number
 }
 
 
-export const ProfileInfo = ({userData, postsCount}:ProfileInfoProps) => {
+export const ProfileInfo = ({userData, postsCount, friendsCount}:ProfileInfoProps) => {
     return (
         <div className={styles.profileSection}>
             <div className={styles.profileAvatar}>
@@ -30,14 +31,9 @@ export const ProfileInfo = ({userData, postsCount}:ProfileInfoProps) => {
                         <span className={styles.statLabel}>Постов</span>
                     </div>
                     <div className={styles.statItem}>
-                        <span className={styles.statNumber}>0</span>
+                        <span className={styles.statNumber}>{friendsCount}</span>
                         <span className={styles.statLabel}>Друзей</span>
                     </div>
-                    <div className={styles.statItem}>
-                        <span className={styles.statNumber}>0</span>
-                        <span className={styles.statLabel}>Подписок</span>
-                    </div>
-
                 </div>
             </div>
         </div>
