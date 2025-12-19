@@ -3,17 +3,20 @@ import { auth, db } from '@/firebase/config'
 import { doc, onSnapshot } from 'firebase/firestore'
 import type { UserData } from '@/types/types'
 
-export const useUserData = () => {
+
+export const useUserData = (uid?: string) => {
     const [user, setUser] = useState<UserData | null>(null)
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        const currentUser = auth.currentUser
-        if (!currentUser)  return
+        const userId = uid ?? auth.currentUser?.uid
+        if (!userId) {
+            return
+        }
 
 
         const unsub = onSnapshot(
-            doc(db, 'users', currentUser.uid),
+            doc(db, 'users', userId),
             snap => {
                 if (snap.exists()) {
                     setUser(snap.data() as UserData)
@@ -23,7 +26,7 @@ export const useUserData = () => {
         )
 
         return () => unsub()
-    }, [])
+    }, [uid])
 
     return { user, loading }
 }

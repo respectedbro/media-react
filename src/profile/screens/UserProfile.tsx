@@ -17,10 +17,12 @@ import {addFriend} from '@/profile/hooks/friendsApi'
 
 import styles from './UserProfile.module.scss';
 import {useMemo} from "react";
+import {useParams} from "react-router-dom";
 
 
 const UserProfile = () => {
-    const {user, loading} = useUserData()
+    const {uid} = useParams()
+    const {user, loading} = useUserData(uid)
     const {posts, createPost, deletePost} = usePosts(user?.uid, user?.fullName)
     const {users: allUsers} = useAllUsers(user?.uid)
 
