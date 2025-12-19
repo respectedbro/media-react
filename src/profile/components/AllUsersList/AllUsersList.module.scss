@@ -7,6 +7,8 @@
   border-radius: $border-radius;
   padding: 25px;
   box-shadow: $box-shadow;
+  max-height: 300px;
+  overflow-y: scroll;
 
   @media (max-width: 992px) {
     grid-column: 1;
@@ -17,7 +19,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 25px;
 
     .usersTitle {
       font-size: 20px;

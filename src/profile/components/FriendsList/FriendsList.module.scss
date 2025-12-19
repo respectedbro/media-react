@@ -7,10 +7,16 @@
   border-radius: $border-radius;
   padding: 25px;
   box-shadow: $box-shadow;
+  max-height: 250px;
+  overflow-y: scroll;
 
   @media (max-width: 992px) {
     grid-column: 1;
     grid-row: 3;
+  }
+
+  .empty {
+    color: $gray-900;
   }
 
   .friendsHeader {

@@ -16,7 +16,11 @@ return (
         </div>
 
         <div className={styles.friendsList}>
-            {friends.map(friend => (
+            {friends.length === 0 ? (
+                <div className={styles.empty}>
+                    Друзей пока нет
+                </div>
+            ) : (friends.map(friend => (
                 <div key={friend.uid} className={styles.friendCard}>
                     <div className={styles.friendAvatar}>
                         <span className={styles.friendInitial}>{friend.fullName[0]}</span>
@@ -28,7 +32,7 @@ return (
                         Удалить
                     </button>
                 </div>
-            ))}
+            )))}
 
 
 
