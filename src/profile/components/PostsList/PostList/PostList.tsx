@@ -9,9 +9,10 @@ import {toggleLike} from '@/profile/hooks/toggleLike.ts';
 interface PostListProps {
     posts: Post[];
     onDelete: (id: string) => void | Promise<void>;
+    isMyProfile: boolean
 }
 
-export const PostList = ({posts, onDelete}:PostListProps) => {
+export const PostList = ({posts, onDelete, isMyProfile}:PostListProps) => {
     const { user: currentUser, loading } = useCurrentUser();
     const [localPosts, setLocalPosts] = useState<Post[]>(posts);
     const [likingPostId, setLikingPostId] = useState<string | null>(null)
@@ -85,6 +86,7 @@ export const PostList = ({posts, onDelete}:PostListProps) => {
                     currentUserName={currentUser.fullName}
                     onCommentAdded={handleCommentAdded}
                     isLiking={likingPostId === post.id}
+                    isMyProfile={isMyProfile}
                 />
             ))}
 

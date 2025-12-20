@@ -7,10 +7,11 @@ interface PostHeaderProps {
     authorName: string;
     createdAt: Timestamp;
     onDelete: () => void;
+    isMyProfile:boolean
 }
 
 
-export const PostHeader = ({authorName, createdAt, onDelete}: PostHeaderProps) => {
+export const PostHeader = ({isMyProfile, authorName, createdAt, onDelete}: PostHeaderProps) => {
     return (
         <>
             <div className={styles.postHeader}>
@@ -29,13 +30,15 @@ export const PostHeader = ({authorName, createdAt, onDelete}: PostHeaderProps) =
                         </time>
                     </div>
                 </div>
+                {isMyProfile && (
+                    <button
+                        className={styles.deletePostBtn}
+                        onClick={onDelete}
+                    >
+                        ×
+                    </button>
+                )}
 
-                <button
-                    className={styles.deletePostBtn}
-                    onClick={onDelete}
-                >
-                    ×
-                </button>
             </div>
 
 

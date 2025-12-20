@@ -10,29 +10,30 @@ import {useUserData} from '@/profile/hooks/useUserData';
 import {usePosts} from '@/profile/hooks/usePosts';
 import {useAllUsers} from '@/profile/hooks/useAllUsers';
 import {useProfileUI} from '@/profile/hooks/useProfileUI';
-import {useFriends} from '@/profile/hooks/useFriends'
-import {removeFriend} from '@/profile/hooks/friendsApi'
-import {addFriend} from '@/profile/hooks/friendsApi'
+import {useFriends} from '@/profile/hooks/useFriends';
+import {removeFriend} from '@/profile/hooks/friendsApi';
+import {addFriend} from '@/profile/hooks/friendsApi';
 
 
 import styles from './UserProfile.module.scss';
-import {useMemo} from "react";
-import {useParams} from "react-router-dom";
+import {useMemo} from 'react';
+import {useParams} from 'react-router-dom';
 
 
 const UserProfile = () => {
-    const {uid} = useParams()
-    const {user, loading} = useUserData(uid)
-    const {posts, createPost, deletePost} = usePosts(user?.uid, user?.fullName)
-    const {users: allUsers} = useAllUsers(user?.uid)
+    const {uid} = useParams();
+    const isMyProfile = !uid;
+    const {user, loading} = useUserData(uid);
+    const {posts, createPost, deletePost} = usePosts(user?.uid, user?.fullName);
+    const {users: allUsers} = useAllUsers(user?.uid);
 
-    const ui = useProfileUI()
+    const ui = useProfileUI();
 
     const friendIds = useMemo(() => {
-        return user?.friends ?? []
-    }, [user?.friends])
+        return user?.friends ?? [];
+    }, [user?.friends]);
 
-    const { friends } = useFriends(friendIds)
+    const {friends} = useFriends(friendIds);
 
 
     if (loading) {
@@ -53,46 +54,60 @@ const UserProfile = () => {
             <ProfileHeader/>
 
             <div className={styles.profileWrapper}>
-                <ProfileInfo userData={user} postsCount={posts.length} friendsCount={user.friends?.length ?? 0}/>
-                <ProfileDetails userData={user}/>
-                <FriendsList friends={friends} onRemoveFriend={async (targetId) => {
-                    await removeFriend(user.uid, targetId)
-                }}/>
-                <AllUsersList
-                    allUsers={allUsers}
-                    currentUserId={user.uid}
-                    friendsIds={user.friends ?? []}
-                    onAddFriend={async (targetId) => {
-                                  await addFriend(user.uid, targetId)
-                              }}
+                <ProfileInfo
+                    userData={user}
+                    postsCount={posts.length}
+                    friendsCount={user.friends?.length ?? 0}
                 />
+                <ProfileDetails userData={user}/>
+                <FriendsList
+                    friends={friends}
+                    onRemoveFriend={
+                        isMyProfile ? async (targetId) => {
+                            await removeFriend(user.uid, targetId);
+                        } : undefined
+                    }
+                />
+
+                    <AllUsersList
+                        allUsers={allUsers}
+                        currentUserId={user.uid}
+                        friendsIds={user.friends ?? []}
+                        onAddFriend={async (targetId) => {
+                            await addFriend(user.uid, targetId);
+                        }}
+                        isMyProfile={isMyProfile}
+                    />
+
+
             </div>
 
             <div className={styles.postsWrapper}>
-                <div className={styles.postsHeader}>
+                {isMyProfile && (<>
+                    <div className={styles.postsHeader}>
 
-                    <div className={styles.createPostToggle}>
-                        <h2>Мои посты</h2>
-                        <button className={styles.createPostButton} onClick={ui.toggleCreatePost}>
-                            {ui.creatingPost ? 'Отмена' : '+ Создать пост'}
-                        </button>
+                        <div className={styles.createPostToggle}>
+                            <h2>Мои посты</h2>
+                            <button className={styles.createPostButton} onClick={ui.toggleCreatePost}>
+                                {ui.creatingPost ? 'Отмена' : '+ Создать пост'}
+                            </button>
+                        </div>
                     </div>
 
+                    {ui.creatingPost && (
+                        <PostsForm
 
-                </div>
+                            onCreate={async (data) => {
+                                await createPost(data);
+                                ui.closeCreatePost();
+                            }}
+                            onCancel={ui.closeCreatePost}
+                        />
+                    )}
+                </>)}
 
-                {ui.creatingPost && (
-                    <PostsForm
 
-                        onCreate={async (data) => {
-                            await createPost(data)
-                            ui.closeCreatePost()
-                        }}
-                        onCancel={ui.closeCreatePost}
-                    />
-                )}
-
-                <PostList posts={posts} onDelete={deletePost}/>
+                <PostList posts={posts} onDelete={deletePost} isMyProfile={isMyProfile}/>
             </div>
         </div>
 

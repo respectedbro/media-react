@@ -6,9 +6,10 @@ interface AllUsersListProps {
     currentUserId:string,
     friendsIds:string[],
     onAddFriend: (userId:string) => void
+    isMyProfile:boolean
 }
 
-export const AllUsersList = ({allUsers, currentUserId, friendsIds, onAddFriend}: AllUsersListProps) => {
+export const AllUsersList = ({isMyProfile, allUsers, currentUserId, friendsIds, onAddFriend}: AllUsersListProps) => {
 
     return (
         <div className={styles.usersSection}>
@@ -38,14 +39,16 @@ export const AllUsersList = ({allUsers, currentUserId, friendsIds, onAddFriend}:
                                         {user.fullName}
                                     </span>
                                 </div>
+                                {isMyProfile && (
+                                    <button
+                                        className={styles.addBtn}
+                                        disabled={isFriend}
+                                        onClick={() => onAddFriend(user.uid)}
+                                    >
+                                        {isFriend ? 'В друзьях' : 'Добавить'}
+                                    </button>
+                                )}
 
-                                <button
-                                    className={styles.addBtn}
-                                    disabled={isFriend}
-                                    onClick={() => onAddFriend(user.uid)}
-                                >
-                                    {isFriend ? 'В друзьях' : 'Добавить'}
-                                </button>
                             </div>
                         )
                     })}
