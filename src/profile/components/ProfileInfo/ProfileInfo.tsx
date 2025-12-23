@@ -1,5 +1,5 @@
 import styles from './ProfileInfo.module.scss'
-import {type UserData} from '@/types/types.ts';
+import {type UserData} from '@/types/types';
 
 interface ProfileInfoProps {
     userData: UserData | null
@@ -27,11 +27,19 @@ export const ProfileInfo = ({userData, postsCount, friendsCount}:ProfileInfoProp
                 <div className={styles.profileStats}>
 
                     <div className={styles.statItem}>
-                        <span className={styles.statNumber}>{postsCount}</span>
+                        <span
+                            className={styles.statNumber}
+                            data-testid='posts-count'>
+                            {postsCount}
+                        </span>
                         <span className={styles.statLabel}>Постов</span>
                     </div>
                     <div className={styles.statItem}>
-                        <span className={styles.statNumber}>{friendsCount}</span>
+                        <span
+                            className={styles.statNumber}
+                            data-testid='friends-count'>
+                            {friendsCount}
+                        </span>
                         <span className={styles.statLabel}>Друзей</span>
                     </div>
                 </div>
