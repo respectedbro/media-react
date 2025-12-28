@@ -44,9 +44,8 @@ export const usePosts = (userId?: string, authorName?: string) => {
                 content: data.content,
                 userId,
                 authorName,
-                likes: 0,
+                likesCount: 0,
                 likedBy: [],
-                comments: 0,
                 createdAt: Timestamp.now(),
                 commentsCount: 0,
             };
@@ -82,7 +81,7 @@ export const usePosts = (userId?: string, authorName?: string) => {
                     p.id === postId
                         ? {
                             ...p,
-                            likes: isLiked ? p.likes - 1 : p.likes + 1,
+                            likes: isLiked ? p.likesCount - 1 : p.likesCount + 1,
                             likedBy: isLiked
                                 ? p.likedBy.filter(id => id !== currentUserId)
                                 : [...p.likedBy, currentUserId]

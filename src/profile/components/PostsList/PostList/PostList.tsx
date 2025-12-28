@@ -1,10 +1,10 @@
 import styles from './PostList.module.scss';
 import type {Post} from '@/types/types.ts';
-import {PostItem} from '@/profile/components/PostsList/PostItem/PostItem.tsx';
-import {EmptyPosts} from '@/profile/components/PostsList/EmptyPosts/EmptyPosts.tsx';
-import {useCurrentUser} from '@/profile/hooks/useCurrentUser'
+import {PostItem} from '@/profile/components/PostsList/PostItem/PostItem';
+import {EmptyPosts} from '@/profile/components/PostsList/EmptyPosts/EmptyPosts';
+import {useUserData} from '@/profile/hooks/useUserData';
 import {useEffect, useState} from 'react';
-import {toggleLike} from '@/profile/hooks/toggleLike.ts';
+import {toggleLike} from '@/profile/hooks/toggleLike';
 
 interface PostListProps {
     posts: Post[];
@@ -12,7 +12,7 @@ interface PostListProps {
 }
 
 export const PostList = ({posts, onDelete}:PostListProps) => {
-    const { user: currentUser, loading } = useCurrentUser();
+    const { user: currentUser, loading } = useUserData();
     const [localPosts, setLocalPosts] = useState<Post[]>(posts);
     const [likingPostId, setLikingPostId] = useState<string | null>(null)
 
@@ -82,7 +82,7 @@ export const PostList = ({posts, onDelete}:PostListProps) => {
                     onDelete={onDelete}
                     onLike={() => handleToggleLike(post.id)}
                     currentUserId={currentUser.uid}
-                    currentUserName={currentUser.fullName}
+                    currentUserName={currentUser.fullName} // ← УБРАЛ displayName
                     onCommentAdded={handleCommentAdded}
                     isLiking={likingPostId === post.id}
                 />
