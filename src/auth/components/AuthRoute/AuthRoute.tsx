@@ -11,7 +11,7 @@ export interface IAuthRouteProps {
 const AuthRoute: React.FunctionComponent<IAuthRouteProps> =(props) => {
     const {children} = props
     const auth = getAuth()
-    const navigate = useNavigate()
+    const navigate = useNavigate() // управление навигацией
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {

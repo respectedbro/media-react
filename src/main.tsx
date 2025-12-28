@@ -11,7 +11,7 @@ import './index.scss'
 
 
 
-
+// Приложение обёрнуто в AuthRoute
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
