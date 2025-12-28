@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 
 interface  FriendsListProps {
     friends: UserData[],
-    onRemoveFriend: (targetId: string) => void
+    onRemoveFriend?: (targetId: string) => void
 }
 
 export const FriendsList = ({onRemoveFriend, friends}:FriendsListProps) => {
@@ -29,12 +29,15 @@ return (
                     <div className={styles.friendInfo}>
                         <span className={styles.friendName}>{friend.fullName}</span>
                     </div>
-                    <button className={styles.deleteBtn} onClick={(e) => {
-                        e.stopPropagation()
-                        onRemoveFriend(friend.uid)
-                    }}>
-                        Удалить
-                    </button>
+                    {onRemoveFriend && (
+                        <button className={styles.deleteBtn} onClick={(e) => {
+                            e.stopPropagation()
+                            onRemoveFriend?.(friend.uid)
+                        }}>
+                            Удалить
+                        </button>
+                    )}
+
                 </div>
             )))}
 

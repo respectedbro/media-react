@@ -54,10 +54,6 @@
       border-radius: 10px;
       transition: $transition;
 
-      &:hover {
-        background: $gray-200;
-        transform: translateX(5px);
-      }
 
       .userAvatar {
         position: relative;

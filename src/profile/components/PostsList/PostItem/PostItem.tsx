@@ -15,10 +15,11 @@
         onDelete: (id: string) => void | Promise<void>
         onLike: () => void
         isLiking:boolean
+        isMyProfile:boolean
     }
     
     
-    export const PostItem = ({isLiking, post, onDelete, currentUserId, currentUserName, onCommentAdded, onLike}: PostItemProps) => {
+    export const PostItem = ({isMyProfile, isLiking, post, onDelete, currentUserId, currentUserName, onCommentAdded, onLike}: PostItemProps) => {
         const [commentsOpen, setCommentsOpen] = useState(false);
     
     
@@ -28,6 +29,7 @@
                     authorName={post.authorName}
                     createdAt={post.createdAt}
                     onDelete={() => onDelete(post.id)}
+                    isMyProfile={isMyProfile}
                 />
     
                 <PostContent

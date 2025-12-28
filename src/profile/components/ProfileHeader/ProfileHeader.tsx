@@ -1,8 +1,11 @@
 import {auth} from '@/firebase/config.ts';
 import {signOut} from 'firebase/auth'
 import styles from './ProfileHeader.module.scss'
+import {useNavigate} from 'react-router-dom';
 
 export const ProfileHeader = () => {
+    const navigate = useNavigate()
+
     const handleLogout =async () => {
         try {
             await signOut(auth)
@@ -11,9 +14,10 @@ export const ProfileHeader = () => {
         }
     }
 
+
     return (
         <div className={styles.header}>
-            <div className={styles.headerLogo}>
+            <div className={styles.headerLogo} onClick={() => navigate('/')}>
                 <img className={styles.logoImage} src="/vite.svg" alt="logo"/>
                 <span className={styles.logoText}>Social Network</span>
             </div>
