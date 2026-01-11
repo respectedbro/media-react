@@ -1,18 +1,21 @@
 import {auth} from '@/firebase/config.ts';
-import {signOut} from 'firebase/auth'
-import styles from './ProfileHeader.module.scss'
-import {useNavigate} from 'react-router-dom';
+import {signOut} from 'firebase/auth';
+import styles from './ProfileHeader.module.scss';
+import {useNavigate, useParams} from 'react-router-dom';
 
 export const ProfileHeader = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const {uid} = useParams();
 
-    const handleLogout =async () => {
+    const isMyProfile = !uid
+
+    const handleLogout = async () => {
         try {
-            await signOut(auth)
+            await signOut(auth);
         } catch (err) {
             console.error(err, 'Что-то пошло не так');
         }
-    }
+    };
 
 
     return (
@@ -29,7 +32,15 @@ export const ProfileHeader = () => {
                 >
                     Выйти
                 </button>
+                {!isMyProfile && (
+                    <button
+                        className={styles.backButton}
+                        onClick={() => navigate('/profile')}
+                    >
+                        ← Мой профиль
+                    </button>
+                )}
             </div>
         </div>
-    )
-}
+    );
+};

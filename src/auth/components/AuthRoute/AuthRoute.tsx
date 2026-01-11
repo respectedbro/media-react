@@ -14,6 +14,10 @@ const AuthRoute: React.FunctionComponent<IAuthRouteProps> =(props) => {
     const navigate = useNavigate()
     const [loading, setLoading] = useState(true)
 
+    if (!auth) {
+        console.log('err');
+    }
+
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {

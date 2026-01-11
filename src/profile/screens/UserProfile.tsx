@@ -46,7 +46,7 @@ const UserProfile = () => {
     }
 
     if (!user) {
-        return <div>Пользователь не найден</div>;
+        return <div className={styles.container}>Пользователь не найден</div>;
     }
 
     return (

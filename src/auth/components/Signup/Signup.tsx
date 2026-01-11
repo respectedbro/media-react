@@ -52,6 +52,7 @@ const Signup = () => {
                 email: user.email,
                 fullName: fullName.trim(),
                 city: city.trim(),
+                age: Number(age),
                 createAt: new Date().toDateString()
             });
 
